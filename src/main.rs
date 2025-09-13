@@ -71,6 +71,7 @@ fn MainApp() -> impl IntoView {
             <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; align-items: flex-start;">
                 <SoundPlayer sound=include_bytes!("../samples/discord-notification.mp3") title="Discord Notification" />
                 <SoundPlayer sound=include_bytes!("../samples/metal-pipe-falling.mp3") title="Metal Pipe Falling" />
+                <SoundPlayer sound=include_bytes!("../samples/most-annoying-sound-in-the-world.mp3") title="Most annoying sound in the world" />
             </div>
         </div>
     }
