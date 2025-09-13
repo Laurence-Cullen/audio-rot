@@ -9,6 +9,7 @@ permissions:
   contents: write # for committing to gh-pages branch.
   pages: write
   id-token: write
+  actions: read
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -56,26 +57,30 @@ jobs:
         # will obviously return error 404 not found.
         run: RUSTFLAGS='--cfg getrandom_backend="wasm_js"' ./trunk build --release --public-url "${GITHUB_REPOSITORY#*/}"
 
-      # Deploy to gh-pages branch
-      # - name: Deploy 🚀
-      #   uses: JamesIves/github-pages-deploy-action@v4
-      #   with:
-      #     folder: dist
-
-      # Deploy with Github Static Pages
-
+      # Deploy with Github Static Pages (preferred method)
       - name: Setup Pages
+        id: setup-pages
         uses: actions/configure-pages@v4
-        with:
-          enablement: true
-          # token:
+        continue-on-error: true
 
       - name: Upload artifact
+        id: upload-artifact
         uses: actions/upload-pages-artifact@v4
         with:
           # Upload dist dir
           path: "./dist"
+        continue-on-error: true
 
       - name: Deploy to GitHub Pages 🚀
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      # Fallback deployment method if GitHub Pages action fails
+      - name: Deploy to gh-pages branch (fallback) 🚀
+        if: failure()
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: gh-pages
+          clean: true
