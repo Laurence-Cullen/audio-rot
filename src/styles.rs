@@ -100,3 +100,17 @@ pub const STATUS_INACTIVE_STYLE: &str = "
     color: white;
     font-size: 14px;
 ";
+
+pub const TOGGLE_BUTTON_INACTIVE_STYLE: &str = "
+    width: 100%;
+    background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 8px;
+";
