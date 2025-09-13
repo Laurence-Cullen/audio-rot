@@ -6,3 +6,5 @@ edition = "2024"
 [dependencies]
 console_error_panic_hook = "0.1.7"
 leptos = { version = "0.8.3", features = ["csr"] }
+rodio = {version = "0.21.1", features = ["mp3", "wasm-bindgen", "noise"]}
+getrandom = { version = "0.3.3", features = ["wasm_js"] }

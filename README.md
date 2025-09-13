@@ -7,6 +7,7 @@
 - TikTok text to speech (Oh my god, you wont believe what happened next!)
 - Most annoying sound in the world: https://www.youtube.com/watch?v=OA-VLDQDDJ4&t=58s
 - DONKEY pop noise: https://www.youtube.com/watch?v=PT4Ck7oduPs
+- Internet dial up sound
 
 # Existing
 - Bing chilling!
