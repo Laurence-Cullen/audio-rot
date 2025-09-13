@@ -11,16 +11,13 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 
 use crate::styles::{
-    BUTTON_STYLE, FORM_CONTAINER_STYLE, INPUT_STYLE, LABEL_STYLE, LABEL_TEXT_STYLE,
+    BUTTON_STYLE, CARD_CONTAINER_STYLE, FORM_GROUP_STYLE, INPUT_STYLE, LABEL_STYLE,
     MAIN_CONTAINER_STYLE, STATUS_ACTIVE_STYLE, STATUS_INACTIVE_STYLE, STOP_BUTTON_STYLE,
     TITLE_STYLE,
 };
 
-const PIPE_SOUND: &[u8] = include_bytes!("../samples/metal-pipe-falling.mp3");
-const DISCORD_NOTIFICATION: &[u8] = include_bytes!("../samples/discord-notification.mp3");
-
 fn main() {
-    mount_to_body(|| view! { <App sound=DISCORD_NOTIFICATION title="Discord notification" /> });
+    mount_to_body(|| view! { <MainApp /> });
 }
 
 fn sample_normal(mean: f32, std_dev: f32) -> f32 {
@@ -68,7 +65,19 @@ fn start_sound_rng(
 }
 
 #[component]
-fn App(sound: &'static [u8], title: &'static str) -> impl IntoView {
+fn MainApp() -> impl IntoView {
+    view! {
+        <div style=MAIN_CONTAINER_STYLE>
+            <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; align-items: flex-start;">
+                <SoundPlayer sound=include_bytes!("../samples/discord-notification.mp3") title="Discord Notification" />
+                <SoundPlayer sound=include_bytes!("../samples/metal-pipe-falling.mp3") title="Metal Pipe Falling" />
+            </div>
+        </div>
+    }
+}
+
+#[component]
+fn SoundPlayer(sound: &'static [u8], title: &'static str) -> impl IntoView {
     let (average_gap, set_average_gap) = signal(2.0);
     let (std_dev, set_std_dev) = signal(0.5);
     let (is_active, set_is_active) = signal(false);
@@ -107,62 +116,60 @@ fn App(sound: &'static [u8], title: &'static str) -> impl IntoView {
     };
 
     view! {
-        <div style=MAIN_CONTAINER_STYLE>
-            <div style=FORM_CONTAINER_STYLE>
-                <h2 style=TITLE_STYLE>{title}</h2>
+        <div style=CARD_CONTAINER_STYLE>
+            <h2 style=TITLE_STYLE>{title}</h2>
 
-                <label style=LABEL_STYLE>
-                    <span style=LABEL_TEXT_STYLE>"Average Gap (seconds)"</span>
-                    <input
-                        type="number"
-                        step="0.1"
-                        style=INPUT_STYLE
-                        prop:value=move || average_gap.get().to_string()
-                        on:input=move |ev| {
-                            if let Ok(val) = event_target_value(&ev).parse::<f32>() {
-                                set_average_gap.set(val);
-                            }
+            <div style=FORM_GROUP_STYLE>
+                <label style=LABEL_STYLE>"Average Gap (seconds)"</label>
+                <input
+                    type="number"
+                    step="0.1"
+                    style=INPUT_STYLE
+                    prop:value=move || average_gap.get().to_string()
+                    on:input=move |ev| {
+                        if let Ok(val) = event_target_value(&ev).parse::<f32>() {
+                            set_average_gap.set(val);
                         }
-                    />
-                </label>
+                    }
+                />
+            </div>
 
-                <label style=LABEL_STYLE>
-                    <span style=LABEL_TEXT_STYLE>"Standard Deviation"</span>
-                    <input
-                        type="number"
-                        step="0.1"
-                        style=INPUT_STYLE
-                        prop:value=move || std_dev.get().to_string()
-                        on:input=move |ev| {
-                            if let Ok(val) = event_target_value(&ev).parse::<f32>() {
-                                set_std_dev.set(val);
-                            }
+            <div style=FORM_GROUP_STYLE>
+                <label style=LABEL_STYLE>"Standard Deviation"</label>
+                <input
+                    type="number"
+                    step="0.1"
+                    style=INPUT_STYLE
+                    prop:value=move || std_dev.get().to_string()
+                    on:input=move |ev| {
+                        if let Ok(val) = event_target_value(&ev).parse::<f32>() {
+                            set_std_dev.set(val);
                         }
-                    />
-                </label>
+                    }
+                />
+            </div>
 
-                <div style=move || if is_active.get() { STATUS_ACTIVE_STYLE } else { STATUS_INACTIVE_STYLE }>
-                    {move || if is_active.get() {
-                        "🔊 Sound Generator Active"
-                    } else {
-                        "🔇 Sound Generator Inactive"
-                    }}
-                </div>
-
+            <div style=move || if is_active.get() { STATUS_ACTIVE_STYLE } else { STATUS_INACTIVE_STYLE }>
                 {move || if is_active.get() {
-                    view! {
-                        <button style=STOP_BUTTON_STYLE on:click=stop_sound>
-                            "Stop Sound"
-                        </button>
-                    }.into_any()
+                    "🔊 Active"
                 } else {
-                    view! {
-                        <button style=BUTTON_STYLE on:click=start_sound>
-                            "Start Sound"
-                        </button>
-                    }.into_any()
+                    "🔇 Inactive"
                 }}
             </div>
+
+            {move || if is_active.get() {
+                view! {
+                    <button style=STOP_BUTTON_STYLE on:click=stop_sound>
+                        "Stop"
+                    </button>
+                }.into_any()
+            } else {
+                view! {
+                    <button style=BUTTON_STYLE on:click=start_sound>
+                        "Start"
+                    </button>
+                }.into_any()
+            }}
         </div>
     }
 }
