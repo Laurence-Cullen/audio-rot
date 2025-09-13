@@ -3,7 +3,7 @@
 - [ ] Baby crying
 - [ ] Car alarm
 - [ ] Laurence says rebuild it in Rust
-- [ ] DJ! (old keyboard sample sound)
+- [x] DJ! (old keyboard sample sound)
 - [ ] TikTok text to speech (Oh my god, you wont believe what happened next!)
 - [x] Most annoying sound in the world: https://www.youtube.com/watch?v=OA-VLDQDDJ4&t=58s
 - [ ] DONKEY pop noise: https://www.youtube.com/watch?v=PT4Ck7oduPs
@@ -16,4 +16,4 @@
 - [x] Smoke alarm
 - [x] AAARGGHG!
 - [x] Groan tube
-- [x] AirHorn sound: https://www.youtube.com/watch?v=OFr74zI1LBM
+- [ ] AirHorn sound: https://www.youtube.com/watch?v=OFr74zI1LBM
