@@ -26,6 +26,9 @@ fn MainApp() -> impl IntoView {
                 <SoundPlayer sound=include_bytes!("../samples/groan-tube.mp3") title="Groan tube" />
                 <SoundPlayer sound=include_bytes!("../samples/dj.mp3") title="DJ" />
                 <SoundPlayer sound=include_bytes!("../samples/up-the-ra.mp3") title="Up the RA!" />
+                <SoundPlayer sound=include_bytes!("../samples/donkey-pop.mp3") title="Pop! (Shrek)" />
+                <SoundPlayer sound=include_bytes!("../samples/car-lock.mp3") title="Car Lock" />
+                <SoundPlayer sound=include_bytes!("../samples/door-knock.mp3") title="Door Knock" />
             </div>
         </div>
     }

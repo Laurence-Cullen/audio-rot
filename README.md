@@ -2,11 +2,12 @@
 
 - [ ] Baby crying
 - [ ] Car alarm
+- [x] Car lock
 - [ ] Laurence says rebuild it in Rust
 - [x] DJ! (old keyboard sample sound)
 - [ ] TikTok text to speech (Oh my god, you wont believe what happened next!)
 - [x] Most annoying sound in the world: https://www.youtube.com/watch?v=OA-VLDQDDJ4&t=58s
-- [ ] DONKEY pop noise: https://www.youtube.com/watch?v=PT4Ck7oduPs
+- [x] DONKEY pop noise: https://www.youtube.com/watch?v=PT4Ck7oduPs
 - [ ] Internet dial up sound
 - [x] Discord notification
 
