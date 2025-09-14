@@ -11,9 +11,9 @@ use std::sync::atomic::{AtomicBool, Ordering};
 
 #[component]
 pub fn SoundPlayer(sound: &'static [u8], title: &'static str) -> impl IntoView {
-    let (average_gap, set_average_gap) = signal(2.0);
+    let (average_gap, set_average_gap) = signal(30.0);
 
-    let (is_regular, set_is_regular) = signal(true);
+    let (is_regular, set_is_regular) = signal(false);
     let (is_active, set_is_active) = signal(false);
     let (audio_sink, set_audio_sink) = signal(None::<Arc<Sink>>);
     let (stop_flag, set_stop_flag) = signal(None::<Arc<AtomicBool>>);
